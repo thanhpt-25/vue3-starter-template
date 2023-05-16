@@ -1,17 +1,12 @@
 import Axios from 'axios'
 import type { AxiosInstance, AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { API_URL } from '@/modules/api/config'
 import { isForbidden, isInternalServerError, isUnauthorized, mapErrors } from '@/modules/api/codes'
+import config from "@/modules/api/config";
 
 export const statusCodesToHandle = [400, 401, 422]
-const TOKEN_KEY = 'token'
+const TOKEN_KEY = 'access_token'
 
-const axios: AxiosInstance = Axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const axios: AxiosInstance = Axios.create(config);
 
 function requestInterceptor(config:  InternalAxiosRequestConfig):  InternalAxiosRequestConfig {
   const token = localStorage.getItem(TOKEN_KEY)
@@ -35,7 +30,7 @@ function requestInterceptorError(error: CustomAxiosError){
 axios.interceptors.request.use(requestInterceptor, requestInterceptorError)
 
 function responseSuccessInterceptor(response: AxiosResponse): AxiosResponse {
-  return response.data
+  return response
 }
 
 interface CustomAxiosError extends AxiosError {
