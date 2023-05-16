@@ -72,3 +72,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+a {
+  cursor: pointer;
+}
+.app-container {
+  min-height: 350px;
+}

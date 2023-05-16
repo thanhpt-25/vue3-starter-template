@@ -1,7 +1,11 @@
 import type {AxiosResponse} from "axios";
-export interface BaseRepositoryInterface<T> {
-  create(item: T): Promise<AxiosResponse<T>>;
-  update(id: number, item: T): Promise<AxiosResponse<T>>;
-  delete(id: number): Promise<T>;
-  get(id: number): Promise<AxiosResponse<T>>;
+import {Observable} from "rxjs";
+import type {AxiosRequestConfig} from "axios";
+export interface BaseRepositoryInterface {
+  post<T = any>(data?: any, config?: AxiosRequestConfig): Observable<AxiosResponse<T>>
+  put<T= any>(data?: any, config?: AxiosRequestConfig): Observable<AxiosResponse<T>>
+  delete<T = any>(config?: AxiosRequestConfig): Observable<AxiosResponse<T>>
+  get<T = any>(config?: AxiosRequestConfig,): Observable<AxiosResponse<T>>
+  head<T = any>(config?: AxiosRequestConfig ): Observable<AxiosResponse<T>>
+  request<T = any>(config: AxiosRequestConfig): Observable<AxiosResponse<T>>
 }
