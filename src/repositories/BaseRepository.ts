@@ -13,46 +13,6 @@ export class BaseRepository implements BaseRepositoryInterface{
   get axiosRef(): AxiosInstance {
     return this.instance;
   }
-  /*
-   async post(data: any): Promise<T> {
-      const cfg = {
-        url: this.url,
-        method: "POST",
-        data: data,
-      }
-      const response = await axios.request<any, AxiosResponse<T>>(cfg);
-      return response as T
-    }
-
-    async put(id: number, data: any): Promise<T> {
-      const cfg = {
-        url: this.url,
-        method: "PUT",
-        data: data
-      }
-      const response = await axios.request<any, AxiosResponse<T>>(cfg);
-      return response as T
-    }
-
-    async delete(id: number): Promise<T> {
-      const cfg: AxiosRequestConfig = {
-        url: this.url + id,
-        method: "DELETE",
-
-      }
-      const response = axios.request<any, AxiosResponse<T>>(cfg);
-      return response as T
-    }
-    async get(id: number): Promise<T> {
-      const cfg: AxiosRequestConfig = {
-        url: this.url + id,
-        method: "GET",
-      }
-      const response = await axios.request<any, AxiosResponse<T>>(cfg);
-      return response as T
-    }
-  */
-
   request<T = any>(config: AxiosRequestConfig): Observable<AxiosResponse<T>> {
     return this.makeObservable<T>(this.instance.request, config);
   }
