@@ -1,35 +1,22 @@
-import Request from '@/requests/Request'
+import type { Request }  from '@/requests/RequestInterface'
 import Joi from 'joi'
-class GetAllProductRequest extends Request {
-  private readonly name: string
-  private schema = Joi.object({
-    name: Joi.string()
-      .required()
-      .email({ tlds: { allow: false } })
+class GetAllProductRequest implements Request {
+  private readonly schema = Joi.object().keys({
+  }).options({
+    abortEarly:false
   })
-  private readonly error
-  public constructor() {
-    super()
-    this.error = null
-    this.name = GetAllProductRequest.name
+  private readonly data: Partial<GetAllProductRequest>= {};
+
+  constructor(partial:Partial<GetAllProductRequest>) {
+    Object.assign(this.data, partial)
   }
   public validated(): any {
-    try {
-      const result = this.schema.validate({ name: 'Pham Tien Thanh' })
-      console.log(result)
-      return true
-    } catch (e) {
-      return false
-    }
-  }
-  public toObject(): Object {
-    return {
-      name: this.name
-    }
-  }
-  public getErrorDetails() {
-    return this.error
+      const result = this.schema.validate(this.data)
+      if(result.error){
+        const errorMessage = result.error.details.map((detail)=>detail.message).join();
+        throw Error(errorMessage);
+      }
+      return this.data
   }
 }
-
 export default GetAllProductRequest

@@ -1,21 +1,25 @@
 import { BaseRepository } from '@/repositories/BaseRepository'
 import type { ProductEntity } from '@/entities/ProductEntity'
 import { catchError, firstValueFrom } from 'rxjs'
-import type { AxiosError, AxiosRequestConfig } from 'axios'
-import GetAllProductRequest from '@/requests/GetAllProductRequest'
+import type { AxiosError } from 'axios'
 class ProductRepository extends BaseRepository {
   private static readonly url = 'products'
-  constructor() {
-    super(ProductRepository.url)
-  }
-  async getAllProducts(request?: GetAllProductRequest): Promise<ProductEntity[]> {
-    const config: AxiosRequestConfig = {
-      data: request?.toObject()
-    }
+  async getAllProducts(): Promise<ProductEntity[]> {
     const { data } = await firstValueFrom(
-      this.get<ProductEntity[]>(config).pipe(
+      this.get<ProductEntity[]>(ProductRepository.url).pipe(
         catchError((error: AxiosError) => {
           console.log(error.response?.data)
+          throw 'An error happened!'
+        })
+      )
+    )
+    return data
+  }
+  async findOne(id:number):Promise<ProductEntity>{
+    const url = ProductRepository.url + "/" + id
+    const { data } = await firstValueFrom(
+      this.get<ProductEntity>(url).pipe(
+        catchError((error: AxiosError) => {
           throw 'An error happened!'
         })
       )

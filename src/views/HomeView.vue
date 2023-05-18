@@ -2,8 +2,7 @@
 import TheWelcome from '../components/TheWelcome.vue'
 import { defineComponent } from 'vue'
 import ProductService from '@/services/ProductService'
-import type { ProductEntity } from '@/entities/ProductEntity'
-import GetAllProductRequest from '@/requests/GetAllProductRequest'
+import GetProductByIdRequest from "@/requests/GetProductByIdRequest";
 export default defineComponent({
   name: 'HomeView',
   components: {
@@ -14,14 +13,14 @@ export default defineComponent({
      * This is begin of code for test
      */
     const service = new ProductService()
-    const request = new GetAllProductRequest()
-    const result = request.validated()
-    if (result) {
-      const products = (await service.getAllProducts(request)) as ProductEntity[]
-      console.log(products)
-      return products
-    } else {
-      console.log('error')
+    try{
+        const data = {id:28} as Partial<GetProductByIdRequest>
+        const request = new GetProductByIdRequest(data)
+        const product = (await service.getProductById(request.validated()))
+        console.log(product)
+        return product
+    }catch (e:Error){
+      console.log(e.message)
     }
     /**
      * This is end of code for test
