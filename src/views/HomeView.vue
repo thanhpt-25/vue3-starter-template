@@ -3,6 +3,7 @@ import TheWelcome from '../components/TheWelcome.vue'
 import { defineComponent } from 'vue'
 import ProductService from '@/services/ProductService'
 import GetProductByIdRequest from "@/requests/GetProductByIdRequest";
+
 export default defineComponent({
   name: 'HomeView',
   components: {
@@ -14,6 +15,8 @@ export default defineComponent({
      */
     const service = new ProductService()
     try{
+        const date = new Date();
+        console.log(this.$formatDate(date, "yyyy/MM/dd"))
         const request = new GetProductByIdRequest({ id : 28 })
         const validatedRequest = request.validated() as GetProductByIdRequest
         const product = (await service.getProductById(validatedRequest))
