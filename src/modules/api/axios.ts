@@ -1,14 +1,14 @@
 import Axios from 'axios'
 import type { AxiosInstance, AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { isForbidden, isInternalServerError, isUnauthorized, mapErrors } from '@/modules/api/codes'
-import config from "@/modules/api/config";
+import config from '@/modules/api/config'
 
 export const statusCodesToHandle = [400, 401, 422]
 const TOKEN_KEY = 'access_token'
 
-const axios: AxiosInstance = Axios.create(config);
+const axios: AxiosInstance = Axios.create(config)
 
-function requestInterceptor(config:  InternalAxiosRequestConfig):  InternalAxiosRequestConfig {
+function requestInterceptor(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
   const token = localStorage.getItem(TOKEN_KEY)
   /*
   if (!config.headers) {
@@ -23,7 +23,7 @@ function requestInterceptor(config:  InternalAxiosRequestConfig):  InternalAxios
 
   return config
 }
-function requestInterceptorError(error: CustomAxiosError){
+function requestInterceptorError(error: CustomAxiosError) {
   return Promise.reject(error)
 }
 
@@ -72,4 +72,4 @@ async function responseErrorInterceptor(error: CustomAxiosError) {
   return Promise.reject(error)
 }
 axios.interceptors.response.use(responseSuccessInterceptor, responseErrorInterceptor)
-export default axios;
+export default axios

@@ -1,4 +1,4 @@
-import HomeView from "@/views/HomeView.vue";
+import HomeView from '@/views/HomeView.vue'
 export default [
   {
     path: '/',
@@ -16,6 +16,6 @@ export default [
   {
     path: '/login',
     name: 'login',
-    component:  () => import('../views/Auth/LoginView.vue')
-  },
+    component: () => import('../views/Auth/LoginView.vue')
+  }
 ]

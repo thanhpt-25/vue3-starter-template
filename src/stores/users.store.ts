@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 export const useUsersStore = defineStore({
   id: 'users',
   state: () => ({
@@ -6,10 +6,10 @@ export const useUsersStore = defineStore({
   }),
   actions: {
     async getAll() {
-      this.users = { loading: true };
+      this.users = { loading: true }
       //fetchWrapper.get(baseUrl)
       //  .then(users => this.users = users)
       //  .catch(error => this.users = { error })
     }
   }
-});
+})
