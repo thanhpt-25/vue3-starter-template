@@ -14,10 +14,11 @@ export default defineComponent({
      */
     const service = new ProductService()
     try{
-        const data = {id:28} as Partial<GetProductByIdRequest>
-        const request = new GetProductByIdRequest(data)
-        const product = (await service.getProductById(request.validated()))
-        console.log(product)
+        const request = new GetProductByIdRequest({ id : 28 })
+        const validatedRequest = request.validated() as GetProductByIdRequest
+        const product = (await service.getProductById(validatedRequest))
+        console.log(validatedRequest.id)
+      console.log(product)
         return product
     }catch (e:Error){
       console.log(e.message)
