@@ -1,5 +1,5 @@
 interface TokenEntity {
-  access_token: string,
+  access_token: string
   refresh_token: string
 }
-export type {TokenEntity}
+export type { TokenEntity }
