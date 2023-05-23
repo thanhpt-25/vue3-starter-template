@@ -1,8 +1,9 @@
 <script lang="ts">
 import TheWelcome from '../components/TheWelcome.vue'
 import { defineComponent } from 'vue'
-import ProductService from "@/services/ProductService"
-import type {ProductEntity} from "@/entities/ProductEntity";
+import ProductService from '@/services/ProductService'
+import GetProductByIdRequest from "@/requests/GetProductByIdRequest";
+
 export default defineComponent({
   name: 'HomeView',
   components: {
@@ -12,17 +13,24 @@ export default defineComponent({
     /**
      * This is begin of code for test
      */
-    const service =  new ProductService()
-    const products = await service.getAllProducts() as ProductEntity[]
-    console.log(products[0])
+    const service = new ProductService()
+    try{
+        const date = new Date();
+        console.log(this.$formatDate(date, "yyyy/MM/dd"))
+        const request = new GetProductByIdRequest({ id : 28 })
+        const validatedRequest = request.validated() as GetProductByIdRequest
+        const product = (await service.getProductById(validatedRequest))
+        console.log(validatedRequest.id)
+      console.log(product)
+        return product
+    }catch (e:Error){
+      console.log(e.message)
+    }
     /**
      * This is end of code for test
      */
-    return products
   },
-  setup(){
-
-  }
+  setup() {}
 })
 </script>
 
