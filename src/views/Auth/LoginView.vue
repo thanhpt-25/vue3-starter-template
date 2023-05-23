@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { Form, Field } from 'vee-validate'
-
 import { useAuthStore } from '@/stores/auth.store'
 
-function onSubmit(values, { setErrors }) {
+async function onSubmit(values, {setErrors}) {
   const authStore = useAuthStore()
-  const { username, password } = values
-
-  return authStore.login(username, password).catch((error) => setErrors({ apiError: error }))
+  try {
+    return await authStore.login(values)
+  } catch (error) {
+    /*
+     * Usually errors is set by VeeValeedate but
+     * here we used Joi that is why we manually add Joi's returned exception to VeeValidate Error
+     */
+    setErrors({
+      ...error.details,
+      apiError: error.message
+    })
+  }
 }
 </script>
 
@@ -25,14 +33,18 @@ function onSubmit(values, { setErrors }) {
               Username
             </label>
             <Field class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" name="username" type="text" placeholder="Username" :class="{ 'is-invalid': errors.username }"/>
-            <div class="invalid-feedback">{{ errors.username }}</div>
+            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" v-show="errors.username">
+			          {{ errors.username }}
+		        </span>
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
               Password
             </label>
             <Field name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" :class="{ 'is-invalid': errors.password }"/>
-            <div class="invalid-feedback">{{ errors.password }}</div>
+            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" v-show="errors.password">
+			          {{ errors.password }}
+		        </span>
           </div>
           <div class="flex items-center justify-between">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" :disabled="isSubmitting">

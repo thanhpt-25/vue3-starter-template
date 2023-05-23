@@ -9,8 +9,7 @@ class AuthRepository extends BaseRepository {
     return firstValueFrom(
       this.post(AuthRepository.url,{ email: username, password: password }).pipe(
         catchError((error: AxiosError) => {
-          console.log(error.response?.data)
-          throw 'An error happened!'
+          throw error
         })
       )
     )

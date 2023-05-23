@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import router from '@/router'
 import AuthService from '@/services/AuthService'
-import type { TokenEntity } from '@/entities/TokenEntity'
+import LoginRequest from "@/requests/LoginRequest";
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => {
@@ -13,9 +13,10 @@ export const useAuthStore = defineStore({
     }
   },
   actions: {
-    async login(username, password) {
+    async login(data: Partial<LoginRequest>) {
       const authService = new AuthService()
-      const tokenEntity = await authService.login(username, password)
+      const request = new LoginRequest(data)
+      const tokenEntity = await authService.login(request.validated())
 
       // update pinia state
       this.access_token = tokenEntity.access_token

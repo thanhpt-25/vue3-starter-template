@@ -11,8 +11,8 @@ class ProductService {
     return await this.repository.getAllProducts()
   }
   async getProductById(request:GetProductByIdRequest):Promise<ProductEntity>{
-    const id:number = request.id
-    return await this.repository.findOne(id)
+    const productId:number = request.id
+    return await this.repository.findOne(productId)
   }
 }
 export default ProductService
