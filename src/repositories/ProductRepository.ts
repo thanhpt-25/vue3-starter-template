@@ -15,12 +15,12 @@ class ProductRepository extends BaseRepository {
     )
     return data
   }
-  async findOne(id:number):Promise<ProductEntity>{
+  async findOne(id: number): Promise<ProductEntity> {
     const url = `${ProductRepository.url}/${id}`
     const { data } = await firstValueFrom(
       this.get<ProductEntity>(url).pipe(
         catchError((error: AxiosError) => {
-          throw 'An error happened!'
+            throw error
         })
       )
     )
