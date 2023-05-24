@@ -8,7 +8,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["@intlify/unplugin-vue-i18n/messages"],
+    "types": ["node","@intlify/unplugin-vue-i18n/messages"],
     "noImplicitAny": false,
     "allowJs": true
   }

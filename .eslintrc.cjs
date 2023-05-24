@@ -9,6 +9,14 @@ module.exports = {
     '@vue/eslint-config-typescript',
     '@vue/eslint-config-prettier/skip-formatting'
   ],
+  overrides:[
+    {
+      files: ["{tailwind,postcss}.config.js"],
+      env: {
+        node: true,
+      },
+    }
+  ],
   parserOptions: {
     ecmaVersion: 'latest'
   }

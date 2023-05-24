@@ -1,4 +1,9 @@
 {
   "title": "Vue 3 Application Template",
-  "description": "A Vue Application Template for Miichisoft members"
+  "description": "A Vue Application Template for Miichisoft members",
+  "http": {
+    "message": {
+      "401": "You are unauthenticated."
+    }
+  }
 }
