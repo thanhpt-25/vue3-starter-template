@@ -1,4 +1,9 @@
 {
   "title": "Vue 3 アプリケーション テンプレート",
-  "description": "このプロジェクトはMiichisoft皆さんのために作成されました"
+  "description": "このプロジェクトはMiichisoft皆さんのために作成されました",
+  "http": {
+    "message": {
+      "401": "ログインは失敗しました."
+    }
+  }
 }
