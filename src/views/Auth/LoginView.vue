@@ -6,7 +6,6 @@ async function onSubmit(values, { setErrors }) {
   try {
     return await authStore.login(values)
   } catch (error) {
-
     /*
      * Usually errors is set by VeeValeedate but
      * here we used Joi that is why we manually add Joi's returned exception to VeeValidate Error
@@ -15,6 +14,10 @@ async function onSubmit(values, { setErrors }) {
       ...error.details,
       apiError: error.message
     })
+    /**
+     * Re-throw error for handler to catch and handle
+     */
+    throw error
   }
 }
 </script>
