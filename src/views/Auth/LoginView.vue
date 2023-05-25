@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Form, Field } from 'vee-validate'
 import { useAuthStore } from '@/stores/auth.store'
+
 async function onSubmit(values, { setErrors }) {
   const authStore = useAuthStore()
   try {
@@ -9,6 +10,7 @@ async function onSubmit(values, { setErrors }) {
     /*
      * Usually errors is set by VeeValeedate but
      * here we used Joi that is why we manually add Joi's returned exception to VeeValidate Error
+     * using ...error.details,
      */
     setErrors({
       ...error.details,
@@ -44,6 +46,7 @@ async function onSubmit(values, { setErrors }) {
             id="username"
             name="username"
             type="text"
+            rules="required|email"
             placeholder="Username"
             :class="{ 'border-red-500': errors.username }"
           />
@@ -63,6 +66,7 @@ async function onSubmit(values, { setErrors }) {
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
+            rules="required|min:8"
             placeholder="******************"
             :class="{ 'border-red-500': errors.password }"
           />
