@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useAuthStore} from '@/stores/auth.store'
-import {Field, Form, ErrorMessage} from "vee-validate";
+import {Field, Form} from "vee-validate";
 
 let validated: boolean = false
 
@@ -17,7 +17,7 @@ async function onSubmit(values, {setErrors}) {
      */
     setErrors({
       ...error.details,
-      apiError: error.message
+      apiError: error.message || null
     })
     /**
      * Re-throw error for handler to catch and handle
@@ -42,6 +42,7 @@ async function onSubmit(values, {setErrors}) {
             <CCard class="p-4">
               <CCardBody>
                 <Form as="div" v-slot="{ errors, isSubmitting }" @submit="onSubmit">
+                  <CAlert color="danger" :visible="errors.apiError!=null" dismissible @close="() => { errors.apiError=null}">{{errors.apiError}}</CAlert>
                   <CForm novalidate class="needs-validation" :validated="validated">
                     <h1>Login</h1>
                     <p class="text-medium-emphasis">Sign In to your account</p>
