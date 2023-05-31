@@ -5,7 +5,6 @@ export function unauthorizedHandler(error: UnauthorizedException){
     /**
      * UnAuthorizedException has been catch and handled by Axios but we can further do something here like logout
      */
-    console.log(error)
     const authStore = useAuthStore()
     return authStore.logout()
 }
